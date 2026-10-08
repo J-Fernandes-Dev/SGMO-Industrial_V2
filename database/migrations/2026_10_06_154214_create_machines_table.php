@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('machines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('section_id')->constrained()->cascadeOnDelete();
+            // Relation with sections table
+            $table->foreignId('section_id')->constrained()->cascadeOnDelete(); //in CascadeOnDelete delete the machines if the section is deleted
             $table->string('code')->unique();
-            $table->string('brandt');
+            $table->string('brand');
             $table->string('model');
             $table->string('serial_number')->nullable();
             $table->string('status')->default('operacional');
