@@ -14,36 +14,42 @@ class SectionAndMachineSeeder extends Seeder
     public function run(): void
     {
         // Creating sections
-        $fresagem = Section::create(['code' => 'CM', 'name' => 'Centros Maquinagem']);
-        $torneamento = Section::create(['code' => 'TN', 'name' => 'Torneamento CNC']);
-        $corte = Section::create(['code' => 'CT', 'name' => 'Cortes']);
+        $fresagem = Section::firstOrCreate(['code' => 'CM'], ['name' => 'Centros Maquinagem']);
+        $torneamento = Section::firstOrCreate(['code' => 'TN'], ['name' => 'Torneamento CNC']);
+        $corte = Section::firstOrCreate(['code' => 'CT'], ['name' => 'Cortes']);
 
         // Creating machines
-        Machine::create([
-            'section_id' => $fresagem->id,
-            'code' => 'MAZAK-VTC800',
-            'brand' => 'Mazak',
-            'model' => 'VTC800/30SR',
-            'serial_number' => 'MZ-882341',
-            'status' => 'operacional',
-        ]);
+        Machine::firstOrCreate(
+            ['code' => 'MAZAK-VTC800'],
+            [
+                'section_id' => $fresagem->id,
+                'brand' => 'Mazak',
+                'model' => 'VTC800/30SR',
+                'serial_number' => 'MZ-882341',
+                'status' => 'operacional',
+            ]
+        );
 
-        Machine::create([
-            'section_id' => $torneamento->id,
-            'code' => 'OKUMA-LB2000',
-            'brand' => 'Okuma',
-            'model' => 'LB2000',
-            'serial_number' => 'OK-123456',
-            'status' => 'operacional',
-        ]);
+        Machine::firstOrCreate(
+            ['code' => 'OKUMA-LB2000'],
+            [
+                'section_id' => $torneamento->id,
+                'brand' => 'Okuma',
+                'model' => 'LB2000',
+                'serial_number' => 'OK-123456',
+                'status' => 'operacional',
+            ]
+        );
 
-        Machine::create([
-            'section_id' => $corte->id,
-            'code' => 'CORTES-001',
-            'brand' => 'Cortes',
-            'model' => 'Cortes 1',
-            'serial_number' => 'CORTES-001',
-            'status' => 'operacional',
-        ]);
+        Machine::firstOrCreate(
+            ['code' => 'CORTES-001'],
+            [
+                'section_id' => $corte->id,
+                'brand' => 'Cortes',
+                'model' => 'Cortes 1',
+                'serial_number' => 'CORTES-001',
+                'status' => 'operacional',
+            ]
+        );
     }
 }
