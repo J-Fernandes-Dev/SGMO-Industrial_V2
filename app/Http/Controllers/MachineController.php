@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreMachineRequest;
 use App\Models\Machine;
 use App\Models\Section;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class MachineController extends Controller
@@ -15,6 +16,7 @@ class MachineController extends Controller
     public function index()
     {
         $machines = Machine::with('section')->get();
+
         return view('machines.index', compact('machines'));
     }
 
@@ -24,6 +26,7 @@ class MachineController extends Controller
     public function create()
     {
         $sections = Section::all();
+
         return view('machines.create', compact('sections'));
     }
 
@@ -33,8 +36,9 @@ class MachineController extends Controller
     public function store(StoreMachineRequest $request)
     {
         Machine::create($request->validated());
+
         return redirect()->route('machines.index')
-                         ->with('success', 'Máquina registada com sucesso!');
+            ->with('success', 'Máquina registada com sucesso!');
     }
 
     /**
@@ -51,6 +55,7 @@ class MachineController extends Controller
     public function edit(Machine $machine)
     {
         $sections = Section::all();
+
         return view('machines.edit', compact('machine', 'sections'));
     }
 
@@ -60,18 +65,33 @@ class MachineController extends Controller
     public function update(Request $request, Machine $machine)
     {
         $validated = $request->validate([
-            'section_id'    => 'required|exists:sections,id',
-            'code'          => 'required|string|max:50|unique:machines,code,' . $machine->id,
-            'brand'         => 'required|string|max:100',
-            'model'         => 'required|string|max:100',
+            'section_id' => 'required|exists:sections,id',
+            'code' => 'required|string|max:50|unique:machines,code,'.$machine->id,
+            'brand' => 'required|string|max:100',
+            'model' => 'required|string|max:100',
             'serial_number' => 'required|string|max:100',
-            'status'        => 'required|in:operacional, avariada, manutencao',
+            'status' => 'required|in:operacional,avariada,manutencao',
         ]);
 
         $machine->update($validated);
 
         return redirect()->route('machines.index')
-                         ->with('success', 'Dados da máquina actualizados!');
+            ->with('success', 'Dados da máquina actualizados!');
+    }
+
+    /**
+     * Update only the machine status.
+     */
+    public function updateStatus(Request $request, Machine $machine): RedirectResponse
+    {
+        $validated = $request->validate([
+            'status' => ['required', 'in:operacional,avariada,manutencao'],
+        ]);
+
+        $machine->update(['status' => $validated['status']]);
+
+        return redirect()->route('machines.index')
+            ->with('success', 'Estado da máquina actualizado!');
     }
 
     /**
@@ -80,7 +100,8 @@ class MachineController extends Controller
     public function destroy(Machine $machine)
     {
         $machine->delete();
+
         return redirect()->route('machines.index')
-                         ->with('success', 'Máquina removida com sucesso!');
+            ->with('success', 'Máquina removida com sucesso!');
     }
 }

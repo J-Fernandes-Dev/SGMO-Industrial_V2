@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MachineController;
-use App\Http\Middleware\CheckRole;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 const PROFILE_PATH = '/profile';
@@ -13,9 +12,15 @@ Route::get('/', function () {
 
 // Rotas protegidas por Autenticação
 Route::middleware(['auth'])->group(function () {
-    
-    // Ver e criar/editar máquinas disponível para utilizadores autenticados
-    Route::resource('machines', MachineController::class)->except(['destroy']);
+
+    // Todos os utilizadores autenticados podem consultar máquinas.
+    Route::resource('machines', MachineController::class)
+        ->except(['destroy'])
+        ->middlewareFor(['create', 'store', 'edit', 'update'], 'role:responsavel');
+
+    Route::patch('machines/{machine}/status', [MachineController::class, 'updateStatus'])
+        ->middleware('role:operador')
+        ->name('machines.update-status');
 
     // Apenas o Responsável pode ELIMINAR máquinas
     Route::delete('machines/{machine}', [MachineController::class, 'destroy'])

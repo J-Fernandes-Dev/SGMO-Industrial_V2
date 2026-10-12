@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@content
+@section('content')
 <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow">
     <h2 class="text-xl font-bold mb-6 text-slate-800 border-b pb-2">Registar Nova Máquina</h2>
 
@@ -65,4 +65,4 @@
         </div>
     </form>
 </div>
-@endcontent
+@endsection
