@@ -28,4 +28,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+public function isResponsavel(): bool
+{
+    return $this->role === 'responsavel';
+}
+
+public function isTecnico(): bool
+{
+    return $this->role === 'tecnico';
+}
+
+public function isOperador(): bool
+{
+    return $this->role === 'operador';
+}
 }

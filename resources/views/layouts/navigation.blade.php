@@ -1,14 +1,8 @@
 <nav x-data="{ open: false }" class="to-blue-900 border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-        <div class="flex justify-between h-16">
+        <div class="flex justify-between h26 border-bp-5 pt-2 ">
             <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <img class="h-16 m-20 w-auto" src="{{ asset('logo_mazak.png') }}" alt="Mazak Industrial">
-                    </a>
-                </div>
             </div>
 
             <!-- Settings Dropdown -->

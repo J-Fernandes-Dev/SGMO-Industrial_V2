@@ -1,19 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+<!-- Reduzimos o padding-top de 'py-6' para 'pt-2', mantendo 'pb-6' -->
+<div class="max-w-7xl mx-auto px-4 lg:px-8 pt-0 pb-6">
 
-    <!-- Cabeçalho da Página e Botão Adicionar -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-slate-800">Parque de Máquinas</h1>
+    <!-- Cabecalho da Página e Botão Adicionar -->
+    <div class="flex justify-between items-center mb-1">
+        <img class="h-12 w-auto" src="{{ asset('logo_mazak.png') }}" alt="Mazak Industrial">
+        <h1 class="text-4xl font-bold text-slate-800">Parque de Máquinas</h1>
 
         @if(auth()->user()->role === 'responsavel')
-            <a href="{{ route('machines.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg shadow-sm transition">
+            <a href="{{ route('machines.create') }}" class="bg-orange-500 hover:bg-orange-600 text-white font-medium py-0 px-2 rounded transition-transform duration-200 hover:scale-105">
                 + Adicionar Centro CNC
             </a>
         @endif
     </div>
-
     <!-- Tabela de Máquinas -->
     <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
         <table class="w-full text-left border-collapse">

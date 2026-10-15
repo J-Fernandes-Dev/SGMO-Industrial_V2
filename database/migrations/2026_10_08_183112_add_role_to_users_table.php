@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //Papeis: Operador, tecnico, responsavel
-            $table->string('role')->default('operador')->after('email');
+            // Define as opções 'operador' e 'responsavel', com padrão 'operador'
+            $table->enum('role', ['operador', 'tecnico', 'responsavel'])->default('operador')->after('email');
         });
     }
 

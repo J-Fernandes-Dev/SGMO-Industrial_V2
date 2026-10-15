@@ -33,5 +33,15 @@ class DatabaseSeeder extends Seeder
                 'role'     => 'operador',
             ]
         );
+
+        // 4. Criar Utilizador Técnico (Pode eliminar máquinas)
+        User::firstOrCreate(
+            ['email' => 'tecnico@sgmo.pt'],
+            [
+                'name'     => 'Técnico de Manutenção',
+                'password' => bcrypt('password'),
+                'role'     => 'tecnico',
+            ]
+        );
     }
 }

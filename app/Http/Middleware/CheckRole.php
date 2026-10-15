@@ -17,8 +17,9 @@ class CheckRole
 public function handle(Request $request, Closure $next, string $role): Response
 {
     // Verifica se o utilizador não está autenticado ou se a role não coincide
-    if (!Auth::check() || Auth::user()->role !== $role) {
-        abort(403, 'Ação não autorizada.');
+    if (! $request->user() || $request->user()->role !== $role) {
+        // Redireciona para a página de login ou retorna um erro 403
+        abort(403, 'Acesso negado. Você não tem permissão para aceder a esta funcionalidade.');
     }
 
     return $next($request);
