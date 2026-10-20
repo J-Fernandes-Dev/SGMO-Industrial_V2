@@ -6,11 +6,10 @@
 
     <!-- Cabecalho da Página e Botão Adicionar -->
     <div class="flex justify-between items-center mb-1">
-        <img class="h-12 w-auto" src="{{ asset('logo_mazak.png') }}" alt="Mazak Industrial">
-        <h1 class="text-4xl font-bold text-slate-800">Parque de Máquinas</h1>
+        <h1 class="text-2xl font-bold text-slate-800">Parque de Máquinas</h1>
 
         @if(auth()->user()->role === 'responsavel')
-            <a href="{{ route('machines.create') }}" class="bg-orange-500 hover:bg-orange-600 text-white font-medium py-0 px-2 rounded transition-transform duration-200 hover:scale-105">
+            <a href="{{ route('machines.create') }}" class="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded transition-transform duration-200 hover:scale-105">
                 + Adicionar Centro CNC
             </a>
         @endif
@@ -20,7 +19,7 @@
         <table class="w-full text-left border-collapse">
 
             <!-- Cabeçalho da Tabela -->
-            <thead class="bg-slate-900 text-white">
+            <thead class="bg-orange-500 text-white">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">Código</th>
                     <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">Marca / Modelo</th>

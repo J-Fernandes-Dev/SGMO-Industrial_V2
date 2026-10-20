@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class WorkOrders extends Model
+class WorkOrder extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'machine_id',
         'user_id',
@@ -25,4 +27,22 @@ class WorkOrders extends Model
     {
         return $this->belongsTo(Machine::class);
     }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function technician()
+    {
+        return $this->belongsTo(User::class, 'assigned_to');
+    }
+
+    public function component()
+    {
+        return $this->belongsTo(Component::class);
+    }
+
+
+
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MachineController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WorkOrderController;
 
 const PROFILE_PATH = '/profile';
 
@@ -12,6 +13,10 @@ Route::get('/', function () {
 
 // Rotas protegidas por Autenticação
 Route::middleware(['auth'])->group(function () {
+
+// 5. Gestão de Ordem de Trabalho
+    Route::resource('work_order', WorkOrderController::class);
+    
 
     // Adiciona esta linha para definir a rota 'dashboard'
     Route::get('/dashboard', function () {
@@ -40,6 +45,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get(PROFILE_PATH, [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch(PROFILE_PATH, [ProfileController::class, 'update'])->name('profile.update');
     Route::delete(PROFILE_PATH, [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+
+
+
+
+
+
+
 });
 
 require __DIR__ . '/auth.php';
