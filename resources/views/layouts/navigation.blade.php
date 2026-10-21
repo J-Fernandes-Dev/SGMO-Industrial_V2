@@ -14,7 +14,7 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 
                     <x-nav-link :href="route('machines.index')" :active="request()->routeIs('machines.*')">
-                        {{ __('Parque de Máquinas') }}
+                        {{ __('Gestão de Máquinas') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('work_order.index')" :active="request()->routeIs('work_order.*')">

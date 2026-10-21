@@ -9,7 +9,8 @@ use App\Models\Machine;
 
 class WorkOrderController extends Controller
 {
-    /**
+
+/**
      * Display a listing of the resource.
      */
     public function index()
@@ -57,31 +58,55 @@ class WorkOrderController extends Controller
         $workOrder->description = $request->description;
         $workOrder->save();
 
-        return redirect()->route('work_orders.index')->with('success', 'Ordem de trabalho criada com sucesso.');
+        return redirect()->route('work_order.index')->with('success', 'Ordem de trabalho criada com sucesso.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(WorkOrder $workOrder)
     {
-        //
+        $workOrder->load(['machine', 'creator', 'technician']);
+        return view('work_order.show', compact('workOrder'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(WorkOrder $workOrder   )
     {
-        //
+        $workOrder->load(['machine', 'creator', 'technician']);
+        $technicians = \App\Models\User::all(); // Assuming you have a User model for technicians
+        return view('work_order.edit', compact('workOrder', 'machines'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, WorkOrder $workOrder)
     {
-        //
+        $request->validate([
+            'status' => 'required|in:pendente,em_andamento,concluida,cancelada',
+            'technical_report' => 'nullable|string|max:2000', // Assuming technicians are users
+            'downtime_hours' => 'nullable|numeric|min:0',
+            "assigned_to" => "nullable|exists:users,id", // Assuming technicians are users
+        ]);
+
+        $workOrder->update([
+            'status' => $request->status,
+            'technical_report' => $request->technical_report,
+            'downtime_hours' => $request->downtime_hours ?? 0,
+            'assigned_to' => $request->assigned_to,
+            "complet_at" => $request->status === 'concluida' ? now() : null,
+
+        ]);
+
+        if ($request->status === 'concluida') {
+            $workOrder->machine->update(['status' => 'operacional']);
+
+            }
+
+            return redirect()->route('work_order.show', $workOrder)->with('success', 'Ordem de trabalho atualizada com sucesso.');
     }
 
     /**

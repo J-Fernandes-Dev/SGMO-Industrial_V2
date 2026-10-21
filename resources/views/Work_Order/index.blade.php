@@ -5,9 +5,9 @@
 
     <!-- Cabeçalho e Botão Nova Avaria -->
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-slate-800">Ordens de Trabalho (Manutenção)</h1>
+        <h1 class="ml-20 text-3xl font-bold text-slate-500">Ordens de Trabalho (Manutenção)</h1>
 
-        <a href="{{ route('work_order.create') }}" class="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded transition-transform duration-200 hover:scale-110">
+        <a href="{{ route('work_order.create') }}" class="bg-orange-500 hover:bg-orange-600 text-white font-medium mr-5 py-2 px-4 rounded transition-transform duration-200 hover:scale-110">
             + Registar Nova Avaria / OT
         </a>
     </div>
@@ -69,7 +69,7 @@
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Detalhes</a>
+                            <a href="{{ route('work_order.show', $wo) }}" class="text-indigo-600 hover:text-indigo-900 font-medium">Detalhes</a>
                         </td>
                     </tr>
                 @empty

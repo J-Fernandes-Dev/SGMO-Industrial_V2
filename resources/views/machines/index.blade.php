@@ -5,13 +5,13 @@
 <div class="max-w-7xl mx-auto px-4 lg:px-8 pt-0 pb-6">
 
     <!-- Cabecalho da Página e Botão Adicionar -->
-    <div class="flex justify-between items-center mb-1">
-        <h1 class="text-2xl font-bold text-slate-800">Parque de Máquinas</h1>
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="ml-20 text-3xl font-bold text-slate-500">Gestão de Máquinas</h1>
 
         @if(auth()->user()->role === 'responsavel')
-            <a href="{{ route('machines.create') }}" class="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded transition-transform duration-200 hover:scale-105">
-                + Adicionar Centro CNC
-            </a>
+            <a href="{{ route('work_order.create') }}" class="bg-orange-500 hover:bg-orange-600 text-white font-medium mr-5 py-2 px-4 rounded transition-transform duration-200 hover:scale-110">
+            + Adicionar Nova Máquina
+        </a>
         @endif
     </div>
     <!-- Tabela de Máquinas -->

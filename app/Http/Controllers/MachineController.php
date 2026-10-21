@@ -46,7 +46,8 @@ class MachineController extends Controller
      */
     public function show(Machine $machine)
     {
-        return view('machines.show', compact('machine', 'sections'));
+    $machine->load(['section', 'components', 'workOrders']);
+    return view('machines.show', compact('machine', 'sections'));
     }
 
     /**

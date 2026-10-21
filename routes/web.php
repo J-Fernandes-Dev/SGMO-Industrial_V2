@@ -16,7 +16,7 @@ Route::middleware(['auth'])->group(function () {
 
 // 5. Gestão de Ordem de Trabalho
     Route::resource('work_order', WorkOrderController::class);
-    
+
 
     // Adiciona esta linha para definir a rota 'dashboard'
     Route::get('/dashboard', function () {
@@ -24,17 +24,19 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
 
     // 1. Visualização do Parque de Máquinas (Operadores, Técnicos e Responsáveis)
-    Route::get('/machines', [MachineController::class, 'index'])->name('machines.index');
-    Route::get('/machines/{machine}', [MachineController::class, 'show'])->name('machines.show');
+   Route::get('/machines', [MachineController::class, 'index'])->name('machines.index');
 
-    // 2. Ações exclusivas do Responsável (Criar, Guardar, Editar, Atualizar, Eliminar)
-    Route::middleware(['role:responsavel'])->group(function () {
-        Route::get('/machines/create', [MachineController::class, 'create'])->name('machines.create');
-        Route::post('/machines', [MachineController::class, 'store'])->name('machines.store');
-        Route::get('/machines/{machine}/edit', [MachineController::class, 'edit'])->name('machines.edit');
-        Route::put('/machines/{machine}', [MachineController::class, 'update'])->name('machines.update');
-        Route::delete('/machines/{machine}', [MachineController::class, 'destroy'])->name('machines.destroy');
-    });
+// 2. Rotas de criação e ações exclusivas (DEVEM VIR ANTES DE /{machine})
+Route::middleware(['role:responsavel'])->group(function () {
+    Route::get('/machines/create', [MachineController::class, 'create'])->name('machines.create');
+    Route::post('/machines', [MachineController::class, 'store'])->name('machines.store');
+    Route::get('/machines/{machine}/edit', [MachineController::class, 'edit'])->name('machines.edit');
+    Route::put('/machines/{machine}', [MachineController::class, 'update'])->name('machines.update');
+    Route::delete('/machines/{machine}', [MachineController::class, 'destroy'])->name('machines.destroy');
+});
+
+    // 3. Ver detalhes de uma máquina específica (Vem DEPOIS das rotas estáticas)
+    Route::get('/machines/{machine}', [MachineController::class, 'show'])->name('machines.show');
 
     // 3. Apenas Operador e Técnico podem alterar o estado da máquina
     Route::patch('/machines/{machine}/status', [MachineController::class, 'updateStatus'])
