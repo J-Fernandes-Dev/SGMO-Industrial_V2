@@ -7,7 +7,7 @@
     <div class="flex items-center justify-between mb-6">
         <div>
             <a href="{{ route('machines.index') }}" class="text-sm font-medium text-slate-500 hover:text-slate-800 transition flex items-center mb-1">
-                &larr; Voltar ao Parque de Máquinas
+                &larr; Voltar á Gestão de Máquinas
             </a>
             <h1 class="text-2xl font-bold text-slate-800">Ficha Técnica: {{ $machine->code }}</h1>
         </div>

@@ -11,7 +11,7 @@
 
     <!-- Formulário -->
     <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-        <form action="{{ route('work-orders.update', $workOrder) }}" method="POST">
+        <form action="{{ route('work_order.update', $workOrder) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -60,7 +60,7 @@
 
             <!-- Botões -->
             <div class="flex justify-end space-x-3">
-                <a href="{{ route('work-orders.show', $workOrder) }}" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-2 px-4 rounded-lg text-sm transition">
+                <a href="{{ route('work_order.show', $workOrder) }}" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-2 px-4 rounded-lg text-sm transition">
                     Cancelar
                 </a>
                 <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg text-sm shadow-sm transition">

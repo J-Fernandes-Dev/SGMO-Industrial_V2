@@ -70,19 +70,17 @@ class WorkOrderController extends Controller
         return view('work_order.show', compact('workOrder'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Mostrar o formulário para editar / fechar a Ordem de Trabalho
+    
     public function edit(WorkOrder $workOrder   )
     {
-        $workOrder->load(['machine', 'creator', 'technician']);
-        $technicians = \App\Models\User::all(); // Assuming you have a User model for technicians
-        return view('work_order.edit', compact('workOrder', 'machines'));
+        $workOrder->load(['machine', 'creator', 'component']);
+        $technicians = \App\Models\User::where('role', 'tecnico')->get();// Lista de utilizadores para atribuição de técnico
+        return view('work_order.edit', compact('workOrder', 'technicians'));
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Atualizar os dados da Ordem de Trabalho (Relatório técnico, estado e downtime)
     public function update(Request $request, WorkOrder $workOrder)
     {
         $request->validate([
@@ -101,6 +99,7 @@ class WorkOrderController extends Controller
 
         ]);
 
+        // Se a ordem de trabalho for concluída, podemos atualizar o estado da máquina para 'operacional'
         if ($request->status === 'concluida') {
             $workOrder->machine->update(['status' => 'operacional']);
 
