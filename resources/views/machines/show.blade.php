@@ -80,7 +80,7 @@
     <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
         <div class="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
             <h2 class="text-base font-bold text-slate-900">Histórico de Ordens de Trabalho / Manutenções</h2>
-            <a href="{{ route('work-orders.create') }}" class="text-xs bg-slate-800 text-white hover:bg-slate-700 px-3 py-1.5 rounded transition">
+            <a href="{{ route('work_order.create') }}" class="text-xs bg-slate-800 text-white hover:bg-slate-700 px-3 py-1.5 rounded transition">
                 + Abrir OT nesta máquina
             </a>
         </div>

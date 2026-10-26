@@ -48,13 +48,6 @@
                 <input type="text" name="serial_number" id="serial_number" value="{{ old('serial_number') }}" class="mt-1 w-full p-2 border rounded border-slate-300">
             </div>
 
-            <div>
-                <label for="status" class="block text-sm font-medium text-slate-700">Estado Inicial</label>
-                <select name="status" id="status" required class="mt-1 w-full p-2 border rounded border-slate-300">
-                    <option value="operacional" {{ old('status') == 'operacional' ? 'selected' : '' }}>Operacional</option>
-                    <option value="avariada" {{ old('status') == 'avariada' ? 'selected' : '' }}>Avariada</option>
-                    <option value="manutencao" {{ old('status') == 'manutencao' ? 'selected' : '' }}>Em Manutenção</option>
-                </select>
                 @error('status') <span class="text-rose-500 text-xs">{{ $message }}</span> @enderror
             </div>
         </div>

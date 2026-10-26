@@ -26,7 +26,7 @@ Route::middleware(['auth'])->group(function () {
     // 1. Visualização do Parque de Máquinas (Operadores, Técnicos e Responsáveis)
    Route::get('/machines', [MachineController::class, 'index'])->name('machines.index');
 
-// 2. Rotas de criação e ações exclusivas (DEVEM VIR ANTES DE /{machine})
+// 2. Rotas de criação e ações exclusivas ( SÃO ROTAS ESTÁTICAS E DEVEM VIR ANTES DE /{machine})
 Route::middleware(['role:responsavel'])->group(function () {
     Route::get('/machines/create', [MachineController::class, 'create'])->name('machines.create');
     Route::post('/machines', [MachineController::class, 'store'])->name('machines.store');

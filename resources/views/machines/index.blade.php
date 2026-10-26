@@ -9,7 +9,7 @@
         <h1 class="ml-20 text-3xl font-bold text-slate-500">Gestão de Máquinas</h1>
 
         @if(auth()->user()->role === 'responsavel')
-            <a href="{{ route('work_order.create') }}" class="bg-orange-500 hover:bg-orange-600 text-white font-medium mr-5 py-2 px-4 rounded transition-transform duration-200 hover:scale-110">
+            <a href="{{ route('machines.create') }}" class="bg-orange-500 hover:bg-orange-600 text-white font-medium mr-5 py-2 px-4 rounded transition-transform duration-200 hover:scale-110">
             + Adicionar Nova Máquina
         </a>
         @endif

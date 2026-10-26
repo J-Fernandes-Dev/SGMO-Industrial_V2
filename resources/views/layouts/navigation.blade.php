@@ -25,10 +25,10 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
+                <x-dropdown align="right" width="38">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-slate-500 bg-white hover:text-black focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }} ({{ ucfirst(Auth::user()->role) }})</div>
+                            <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

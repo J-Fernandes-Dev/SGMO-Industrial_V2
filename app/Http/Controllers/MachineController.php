@@ -86,7 +86,7 @@ class MachineController extends Controller
     public function updateStatus(Request $request, Machine $machine): RedirectResponse
     {
         $validated = $request->validate([
-            'status' => ['required', 'in:operacional,avariada,manutencao'],
+            'status' => ['required', 'in:operacional,avariada,manutencao,pendente'],
         ]);
 
         $machine->update(['status' => $validated['status']]);

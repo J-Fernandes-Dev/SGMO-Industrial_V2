@@ -16,6 +16,17 @@ class StoreMachineRequest extends FormRequest
     }
 
     /**
+     * Prepare os dados para validação.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            // Converte o código da máquina para maiúsculas e remove espaços à volta
+            'code' => strtoupper(str_replace(' ', '', $this->code)),
+        ]);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array<mixed>|string>
@@ -28,7 +39,6 @@ class StoreMachineRequest extends FormRequest
             'brand'         => 'required|string|max:255',
             'model'         => 'required|string|max:255',
             'serial_number' => 'nullable|string|max:255',
-            'status'        => 'required|in:operacional,avariada,manutencao',
         ];
     }
 }

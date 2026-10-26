@@ -2,46 +2,47 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. Executar o Seeder das Secções e Máquinas
+        // 1. Criar / Atualizar o Responsável
+        User::updateOrCreate(
+            ['email' => 'responsavel@sgmo.pt'],
+            [
+                'name' => 'João Fernandes',
+                'password' => Hash::make('password123'), // Podes usar a tua password habitual
+                'role' => 'responsavel',
+            ]
+        );
+
+        // 2. Criar / Atualizar o Técnico
+        User::updateOrCreate(
+            ['email' => 'tecnico@sgmo.pt'],
+            [
+                'name' => 'Carlos Silva',
+                'password' => Hash::make('password123'),
+                'role' => 'tecnico',
+            ]
+        );
+
+        // 3. Criar / Atualizar o Operador
+        User::updateOrCreate(
+            ['email' => 'operador@sgmo.pt'],
+            [
+                'name' => 'Manuel Santos',
+                'password' => Hash::make('password123'),
+                'role' => 'operador',
+            ]
+        );
+
+        // Chamar também o seeder das máquinas e secções se o tiveres aqui:
         $this->call([
             SectionAndMachineSeeder::class,
         ]);
-
-        // 2. Criar Utilizador Responsável de Turno (Pode eliminar máquinas)
-        User::firstOrCreate(
-            ['email' => 'responsavel@sgmo.pt'],
-            [
-                'name'     => 'João Fernandes (Responsável)',
-                'password' => bcrypt('password'),
-                'role'     => 'responsavel',
-            ]
-        );
-
-        // 3. Criar Utilizador Operador (Não pode eliminar máquinas)
-        User::firstOrCreate(
-            ['email' => 'operador@sgmo.pt'],
-            [
-                'name'     => 'Operador de Maquinação',
-                'password' => bcrypt('password'),
-                'role'     => 'operador',
-            ]
-        );
-
-        // 4. Criar Utilizador Técnico (Pode eliminar máquinas)
-        User::firstOrCreate(
-            ['email' => 'tecnico@sgmo.pt'],
-            [
-                'name'     => 'Técnico de Manutenção',
-                'password' => bcrypt('password'),
-                'role'     => 'tecnico',
-            ]
-        );
     }
 }

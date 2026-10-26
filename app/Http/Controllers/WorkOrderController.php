@@ -54,7 +54,7 @@ class WorkOrderController extends Controller
         $workOrder->user_id = Auth::id(); // Assuming the logged-in user is the creator
         $workOrder->type = $request->type;
         $workOrder->priority = $request->priority;
-        $workOrder->status = $request->status;
+        $workOrder->status = $request->status ?? 'pendente'; // Default to 'pendente' if not provided
         $workOrder->description = $request->description;
         $workOrder->save();
 
@@ -71,7 +71,7 @@ class WorkOrderController extends Controller
     }
 
     // Mostrar o formulário para editar / fechar a Ordem de Trabalho
-    
+
     public function edit(WorkOrder $workOrder   )
     {
         $workOrder->load(['machine', 'creator', 'component']);
