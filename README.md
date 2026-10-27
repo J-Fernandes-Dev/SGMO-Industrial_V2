@@ -1,7 +1,10 @@
+🚧 Projeto em Desenvolvimento (WIP - Work in Progress):
+Sistema de Gestão de Operações (SGMO) em PHP/Laravel. Atualmente a implementar a fase de Autenticação, Relações e Formulários Reativos.
+
 # SGMO-Industrial 🏭
 > **Sistema de Gestão de Manutenção Operacional e Industrial**
 
-O SGMO-Industrial é uma aplicação web desenvolvida para otimizar o fluxo de trabalho de equipas de manutenção em ambientes industriais. O sistema permite o acompanhamento do ciclo de vida dos equipamentos, gestão de ordens de trabalho (manutenção preventiva e corretiva) e controlo de componentes, focando na redução do tempo de inatividade (*downtime*) e no aumento da produtividade operacional.
+O SGMO-Industrial vai ser uma aplicação web desenvolvida para otimizar o fluxo de trabalho de equipas de manutenção em ambientes industriais. O sistema permite o acompanhamento do ciclo de vida dos equipamentos, gestão de ordens de trabalho (manutenção preventiva e corretiva) e controlo de componentes, focando na redução do tempo de inatividade (*downtime*) e no aumento da produtividade operacional.
 
 ---
 
