@@ -20,8 +20,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Adiciona esta linha para definir a rota 'dashboard'
     Route::get('/dashboard', function () {
-        return redirect('machines');
-    })->name('dashboard');
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
 
     // 1. Visualização do Parque de Máquinas (Operadores, Técnicos e Responsáveis)
    Route::get('/machines', [MachineController::class, 'index'])->name('machines.index');
