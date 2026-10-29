@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
             ['email' => 'responsavel@sgmo.pt'],
             [
                 'name' => 'João Fernandes',
-                'password' => Hash::make('password123'), // Podes usar a tua password habitual
+                'password' => Hash::make('12345678'), // Podes usar a tua password habitual
                 'role' => 'responsavel',
             ]
         );
@@ -25,20 +25,29 @@ class DatabaseSeeder extends Seeder
             ['email' => 'tecnico@sgmo.pt'],
             [
                 'name' => 'Carlos Silva',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('12345678'),
                 'role' => 'tecnico',
             ]
         );
 
         // 3. Criar / Atualizar o Operador
         User::updateOrCreate(
-            ['email' => 'operador@sgmo.pt'],
+            ['email' => 'manuelsantos@sgmo.pt'],
             [
                 'name' => 'Manuel Santos',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('12345678'),
                 'role' => 'operador',
             ]
         );
+                User::updateOrCreate(
+            ['email' => 'lucas@sgmo.pt'],
+            [
+                'name' => 'Lucas',
+                'password' => Hash::make('12345678'),
+                'role' => 'operador',
+            ]
+        );
+
 
         // Chamar também o seeder das máquinas e secções se o tiveres aqui:
         $this->call([

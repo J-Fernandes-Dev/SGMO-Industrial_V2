@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Reduzimos o padding-top de 'py-6' para 'pt-2', mantendo 'pb-6' -->
-<div class="max-w-7xl mx-auto px-4 lg:px-8 pt-0 pb-6">
+<div class="max-w-[96%] mx-auto px-4 lg:px-8 pt-0 pb-6">
 
     <!-- Cabecalho da Página e Botão Adicionar -->
     <div class="flex justify-between items-center mb-6">

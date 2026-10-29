@@ -15,8 +15,8 @@ class WorkOrderController extends Controller
      */
     public function index()
     {
-      $workOrder = WorkOrder::with(['machine', 'creator', 'technician'])->latest()->get();
-      return view('work_order.index', compact('workOrder'));
+      $workOrders= WorkOrder::all();
+      return view('work_order.index', compact('workOrders'));
     }
 
     /**
@@ -31,37 +31,34 @@ class WorkOrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+/**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
-        $request->validate([
-            'machine_id' => 'required|exists:machines,id',
-            'type' => 'required|in:preventiva,corretiva',
-            'priority' => 'required|in:baixa,media,alta,critica',
-            'description' => 'required|string|max:1000',
-        ]);
-
+        // 1. Criar a Ordem de Trabalho
         WorkOrder::create([
             'machine_id' => $request->machine_id,
-            'user_id' => Auth::id(), // Utilizador autenticado que está a abrir a OT
-            'type' => $request->type,
-            'priority' => $request->priority,
-            'status' => 'pendente', // Estado inicial predefinido como 'pendente'
+            'user_id' => auth::id() ?? 1,
+            'type' => $request->type ?? 'corretiva',
+            'priority' => $request->priority ?? 'media',
+            'status' => 'pendente',
             'description' => $request->description,
+            'started_at' => now(),
         ]);
 
-        $workOrder = new WorkOrder();
-        $workOrder->machine_id = $request->machine_id;
-        $workOrder->user_id = Auth::id(); // Assuming the logged-in user is the creator
-        $workOrder->type = $request->type;
-        $workOrder->priority = $request->priority;
-        $workOrder->status = $request->status ?? 'pendente'; // Default to 'pendente' if not provided
-        $workOrder->description = $request->description;
-        $workOrder->save();
+        // 2. Atualizar o estado da máquina para avariada
+        if ($request->filled('machine_id')) {
+            $machine = Machine::find($request->machine_id);
+            if ($machine) {
+                $machine->update([
+                    'status' => 'avariada'
+                ]);
+            }
+        }
 
-        return redirect()->route('work_order.index')->with('success', 'Ordem de trabalho criada com sucesso.');
-    }
-
-    /**
+        return redirect()->back()->with('success', 'Ordem de trabalho criada e máquina atualizada com sucesso!');
+    }    /**
      * Display the specified resource.
      */
     public function show(WorkOrder $workOrder)
@@ -111,8 +108,26 @@ class WorkOrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(string $id)
     {
-        //
+        $workOrder = WorkOrder::findOrFail($id);
+
+        // Se a OT estiver associada a uma máquina, voltamos a colocá-la operacional (opcional, mas recomendado)
+        if ($workOrder->machine_id) {
+            $machine = Machine::find($workOrder->machine_id);
+            if ($machine) {
+                $machine->update([
+                    'status' => 'operacional' // Ou 'ativa' / 'disponível' consoante o teu sistema
+                ]);
+            }
+        }
+
+        // Apagar a Ordem de Trabalho
+        $workOrder->delete();
+
+        return redirect()->back()->with('success', 'Ordem de trabalho apagada e máquina atualizada com sucesso!');
     }
 }

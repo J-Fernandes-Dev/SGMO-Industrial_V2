@@ -9,8 +9,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 <!-- Aqui está o componente Livewire em formato painel retrátil -->
-                <livewire:quick-avaria />
+                <x-quick-avaria />
             </div>
         </div>
     </div>
 </x-app-layout>
+

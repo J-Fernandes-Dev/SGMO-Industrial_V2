@@ -48,14 +48,6 @@ Route::middleware(['role:responsavel'])->group(function () {
     Route::patch(PROFILE_PATH, [ProfileController::class, 'update'])->name('profile.update');
     Route::delete(PROFILE_PATH, [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-
-
-
-
-
-
-
-
 });
 
 require __DIR__ . '/auth.php';

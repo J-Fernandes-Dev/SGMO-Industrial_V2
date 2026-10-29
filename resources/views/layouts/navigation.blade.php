@@ -1,34 +1,44 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-slate-200 shadow-sm">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+    <!-- Primary Navigation Menu (Alargado para aproveitar melhor o monitor) -->
+    <div class="max-w-[96%] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20"> <!-- Aumentei ligeiramente a altura da barra para h-20 -->
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+                <div class="shrink-0 flex items-center pr-12">
                     <a href="{{ route('dashboard') }}">
-                        <img src="{{ asset('magesor.png') }}" alt="Magesor" class="h-12 w-auto object-contain">
+                        <img src="{{ asset('magesor.png') }}" alt="Magesor" class="h-14 w-auto object-contain">
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-
-                    <x-nav-link :href="route('machines.index')" :active="request()->routeIs('machines.*')">
+                <!-- Navigation Links (Com letras maiores para monitores grandes) -->
+                <div class="hidden space-x-10 sm:-my-px sm:ml-12 sm:flex sm:items-center">
+                    <!-- Link Gestão de Máquinas -->
+                    <a href="{{ route('machines.index') }}"
+                       class="font-bold transition-all duration-300 hover:scale-105 {{ request()->routeIs('machines.*') ? 'text-4xl text-slate-900' : 'text-lg text-slate-400 hover:text-slate-600' }}">
                         {{ __('Gestão de Máquinas') }}
-                    </x-nav-link>
+                    </a>
 
-                    <x-nav-link :href="route('work_order.index')" :active="request()->routeIs('work_order.*')">
+                    <!-- Link Manutenção / OTs -->
+                    <a href="{{ route('work_order.index') }}"
+                       class="font-bold transition-all duration-300 hover:scale-105 {{ request()->routeIs('work_order.*') ? 'text-3xl text-yellow-600' : 'text-lg text-slate-400 hover:text-slate-600' }}">
                         {{ __('Manutenção / OTs') }}
-                    </x-nav-link>
-                </div>
+                    </a>
+            <!-- Restante código (Avarias, Dropdown do utilizador, etc.) -->
+            ...
+
+    <!-- COMPONENTE QUICK AVARIA NO TOPO -->
+    <div class="ml-4">
+        <x-quick-avaria />
+    </div>
+</div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="38">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-slate-500 bg-white hover:text-black focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-base leading-4 font-medium rounded-md text-slate-500 bg-white hover:text-black focus:outline-none transition ease-in-out duration-150">
+                            <div>{{ Auth::user()->name }}<span class="text-sm text-black font-normal"> -  {{ ucfirst(Auth::user()->role) }} </span></div>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
